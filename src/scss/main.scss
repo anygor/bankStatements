@@ -1,8 +1,29 @@
+body{
+    display: flex;
+    flex-direction: column;
+    
+}
+.content{
+    align-self: center;
+}
 .header{
     display: flex;
     flex-direction: row;
     font-size: 20px;
+    width: 1000px;
+    &_title{
+        width: 400px;
+    }
+    &_username{
+        margin-left: 433px;
+        margin-top: 44px;
+        font-size: 30px;
+    }
+}
+table, th, td{
+    border: 1px solid black;
+    width: 1000px;
 }
 table{
-    border: 1px solid black;
+    border-collapse: collapse;
 }
