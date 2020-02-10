@@ -46,9 +46,43 @@ function parseDate(dateStr){
     return date.toLocaleString('ru-RU', options);
 
 }
-
 function parseTime(dateStr){
     var date = new Date(dateStr);
     var options = {hour: 'numeric', minute: 'numeric', second: 'numeric'};
     return date.toLocaleTimeString('ru-RU', options);
+}
+function closeDate(){
+    var col = document.querySelector('.dateCol');
+    if(col.style.visibility!=="collapse"){
+        col.style.visibility="collapse";
+    }
+    else col.style.visibility="visible";
+}
+function closeTime(){
+    var col = document.querySelector('.timeCol');
+    if(col.style.visibility!=="collapse"){
+        col.style.visibility="collapse";
+    }
+    else col.style.visibility="visible";
+}
+function closeType(){
+    var col = document.querySelector('.typeCol');
+    if(col.style.visibility!=="collapse"){
+        col.style.visibility="collapse";
+    }
+    else col.style.visibility="visible";
+}
+function closeIncome(){
+    var col = document.querySelector('.incCol');
+    if(col.style.visibility!=="collapse"){
+        col.style.visibility="collapse";
+    }
+    else col.style.visibility="visible";
+}
+function closeOutcome(){
+    var col = document.querySelector('.outcCol');
+    if(col.style.visibility!=="collapse"){
+        col.style.visibility="collapse";
+    }
+    else col.style.visibility="visible";
 }

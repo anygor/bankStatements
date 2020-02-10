@@ -15,34 +15,35 @@
     <div class="check">
         <div id=check_data class=check_checkbox>
             <label for="check_data">Дата</label>
-            <input type="checkbox">
+            <input type="checkbox" checked=true onclick="closeDate();">
         </div>
         <div id=check_time class=check_checkbox>
             <label for="check_time">Время</label>
-            <input type="checkbox">
+            <input type="checkbox" checked=true onclick="closeTime();">
         </div>
         <div id=check_type class=check_checkbox>
             <label for="check_type">Тип</label>
-            <input type="checkbox">
+            <input type="checkbox" checked=true onclick="closeType();">
         </div>
         <div id=check_income class=check_checkbox>
             <label for="check_income">Приход</label>
-            <input type="checkbox">
+            <input type="checkbox" checked=true onclick="closeIncome();">
         </div>
         <div id=check_outcome class=check_checkbox>
             <label for="check_outcome">Расход</label>
-            <input type="checkbox">
+            <input type="checkbox" checked=true onclick="closeOutcome();">
         </div>
     </div>
     <select class=grouping>
         <option>Без группировки</option>
         <option>По дате</option>
-        <option>По времени</option>
-        <option>По типу</option>
-        <option>По приходу</option>
-        <option>По расходу</option>
     </select>
     <table>
+        <col class="dateCol"/>
+        <col class="timeCol"/>
+        <col class="typeCol"/>
+        <col class="incCol"/>
+        <col class="outcCol"/>
         <thead>
             <th>Дата</th>
             <th>Время</th>

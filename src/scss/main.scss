@@ -12,23 +12,23 @@ body{
     display: flex;
     flex-direction: row;
     font-size: 20px;
-    width: 1100px;
+    width: 1350px;
     border-bottom: 3px solid black;
     &_title{
         width: 400px;
     }
     &_username{
-        margin-left: 518px;
+        margin-left: 758px;
         margin-top: 44px;
         font-size: 30px;
     }
 }
 table, th, td{
     border: 1px solid black;
-    width: 1100px;
 }
 th, td{
     padding: 5px;
+    width: 250px;
 }
 th{
     background-color: #AAA;
