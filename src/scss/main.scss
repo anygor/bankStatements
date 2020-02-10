@@ -13,7 +13,7 @@ body{
     flex-direction: row;
     font-size: 20px;
     width: 1100px;
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid black;
     &_title{
         width: 400px;
     }
@@ -26,6 +26,9 @@ body{
 table, th, td{
     border: 1px solid black;
     width: 1100px;
+}
+th, td{
+    padding: 5px;
 }
 th{
     background-color: #AAA;
@@ -43,6 +46,7 @@ table{
     display: flex;
     flex-direction: row;
     border: 1px solid black;
+    margin-top: 10px;
     &_checkbox{
         display: flex;
         flex-grow: 1;
