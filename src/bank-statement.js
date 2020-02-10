@@ -20,6 +20,7 @@ for(var i = 0; i < myStatementData.length; i++){
     var amountString;
     if (amount > 0) {
         const incomeCell = document.createElement('td');
+        incomeCell.className = "income";
         amountString = amount.toLocaleString('ru-RU') + ' ₽';
         incomeCell.innerText = amountString;
         x.appendChild(incomeCell);
@@ -30,6 +31,7 @@ for(var i = 0; i < myStatementData.length; i++){
         amountString = amount.toLocaleString('ru-RU') + ' ₽';
         x.appendChild(document.createElement('td'));
         const outcomeCell = document.createElement('td');
+        outcomeCell.className = "outcome";
         outcomeCell.innerText = amountString;
         x.appendChild(outcomeCell);
     }
