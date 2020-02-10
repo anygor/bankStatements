@@ -11,6 +11,7 @@ body{
     flex-direction: row;
     font-size: 20px;
     width: 1000px;
+    border-bottom: 1px solid black;
     &_title{
         width: 400px;
     }
@@ -26,4 +27,15 @@ table, th, td{
 }
 table{
     border-collapse: collapse;
+}
+.check{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    margin: 10px;
+    &_checkbox{
+        display: flex;
+        flex-grow: 1;
+        margin-left: 90px;
+    }
 }
