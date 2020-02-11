@@ -1,5 +1,9 @@
 var x = document.querySelector('tbody'); // gets elements with css selector
 for(var i = 0; i < myStatementData.length; i++){
+
+    const currentRow = document.createElement('tr');
+    x.appendChild(currentRow);
+
     const date = myStatementData[i].date;
     var amount = myStatementData[i].amount;
     var dateString = parseDate(date);
@@ -7,37 +11,39 @@ for(var i = 0; i < myStatementData.length; i++){
 
     const dateCell = document.createElement('td');
     dateCell.innerText = dateString;
-    x.appendChild(dateCell);
+    dateCell.className = "date";
+    currentRow.appendChild(dateCell);
 
     const timeCell = document.createElement('td');
     timeCell.innerText = timeString;
-    x.appendChild(timeCell);
+    timeCell.className = "time";
+    currentRow.appendChild(timeCell);
 
     const typeCell = document.createElement('td');
     typeCell.innerText = myStatementData[i].type;
-    x.appendChild(typeCell);
+    typeCell.className = "type";
+    currentRow.appendChild(typeCell);
 
     var amountString;
     if (amount > 0) {
         const incomeCell = document.createElement('td');
-        incomeCell.className = "income";
         amountString = amount.toLocaleString('ru-RU') + ' ₽';
         incomeCell.innerText = amountString;
-        x.appendChild(incomeCell);
-        x.appendChild(document.createElement('td'));
+        incomeCell.className = "income";
+        currentRow.appendChild(incomeCell);
+        const outcomeCell = document.createElement('td');
+        outcomeCell.className = "outcome";
+        currentRow.appendChild(outcomeCell);
     }
     else {
         amount = Math.abs(amount);
         amountString = amount.toLocaleString('ru-RU') + ' ₽';
-        x.appendChild(document.createElement('td'));
+        currentRow.appendChild(document.createElement('td'));
         const outcomeCell = document.createElement('td');
         outcomeCell.className = "outcome";
         outcomeCell.innerText = amountString;
-        x.appendChild(outcomeCell);
+        currentRow.appendChild(outcomeCell);
     }
-
-    const cell = document.createElement('tr');
-    x.appendChild(cell);
 }
 
 function parseDate(dateStr){
@@ -51,12 +57,35 @@ function parseTime(dateStr){
     var options = {hour: 'numeric', minute: 'numeric', second: 'numeric'};
     return date.toLocaleTimeString('ru-RU', options);
 }
+
+
 function closeDate(){
-    var col = document.querySelector('.dateCol');
-    if(col.style.visibility!=="collapse"){
-        col.style.visibility="collapse";
+    var rowsLength = x.rows.length;
+    var col = 0;
+    var tr, td;
+    var dateHeader = document.querySelector('#dateHeader');
+    var dateCB = document.querySelector('#check_checkdate');
+    console.log(dateCB.checked);
+    if(dateCB.checked){
+        console.log("true");
+        dateCB.checked=false;
+        dateHeader.style.display="none";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="none";
+        }
     }
-    else col.style.visibility="visible";
+    else{
+        console.log("false");
+        dateCB.checked=true;
+        dateHeader.style.display="table-cell";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="table-cell";
+        }
+    }
 }
 function closeTime(){
     var col = document.querySelector('.timeCol');
