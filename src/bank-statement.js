@@ -205,3 +205,46 @@ function closeOutcome(){
         }
     }
 }
+
+function nogroup(){
+    timeCB.checked = false;
+    typeCB.checked = false;
+    closeTime();
+    closeType();
+
+}
+function group(){
+    timeCB.checked = true;
+    typeCB.checked = true;
+    closeType();
+    closeTime();
+
+    var old_tbody = document.querySelector('tbody');
+    var new_tbody = document.createElement('tbody');
+    old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
+
+    var sumDay = new Map();
+
+    for (var i = 0; i < myStatementData.length; i++){
+        var amount = myStatementData[i].amount;
+        const date = myStatementData[i].date;
+        var dateString = parseDate(date);
+
+        if(!sumDay.has(dateString)){
+            sumDay.set(dateString, amount);
+        }
+        else{
+            var currentAmount = sumDay.get(dateString);
+            sumDay.set(dateString, currentAmount + amount);
+        }
+    }
+    var mapIter = sumDay.keys();
+
+    var currentRow = document.createElement('tr');
+    x.appendChild(currentRow);
+
+    const dateCell = document.createElement('td');
+    dateCell.innerText = mapIter.next().value;
+    dateCell.className = "date";
+    currentRow.appendChild(dateCell);
+}
