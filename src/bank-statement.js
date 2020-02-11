@@ -1,4 +1,15 @@
 var x = document.querySelector('tbody'); // gets elements with css selector
+var dateCB = document.querySelector('#check_checkdate');
+var timeCB = document.querySelector('#check_checktime');
+var typeCB = document.querySelector('#check_checktype');
+var incomeCB = document.querySelector('#check_checkincome');
+var outcomeCB = document.querySelector('#check_checkoutcome');
+dateCB.checked = true;
+timeCB.checked = true;
+typeCB.checked = true;
+incomeCB.checked = true;
+outcomeCB.checked = true;
+
 for(var i = 0; i < myStatementData.length; i++){
 
     const currentRow = document.createElement('tr');
@@ -64,7 +75,6 @@ function closeDate(){
     var col = 0;
     var tr, td;
     var dateHeader = document.querySelector('#dateHeader');
-    var dateCB = document.querySelector('#check_checkdate');
     console.log(dateCB.checked);
     if(dateCB.checked){
         console.log("true");
@@ -76,7 +86,7 @@ function closeDate(){
             td.style.display="none";
         }
     }
-    else{
+    else if (!dateCB.checked){
         console.log("false");
         dateCB.checked=true;
         dateHeader.style.display="table-cell";
@@ -88,30 +98,110 @@ function closeDate(){
     }
 }
 function closeTime(){
-    var col = document.querySelector('.timeCol');
-    if(col.style.visibility!=="collapse"){
-        col.style.visibility="collapse";
+    var rowsLength = x.rows.length;
+    var col = 1;
+    var tr, td;
+    var timeHeader = document.querySelector('#timeHeader');
+    console.log(timeCB.checked);
+    if(timeCB.checked){
+        console.log("true");
+        timeCB.checked=false;
+        timeHeader.style.display="none";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="none";
+        }
     }
-    else col.style.visibility="visible";
+    else if (!timeCB.checked){
+        console.log("false");
+        timeCB.checked=true;
+        timeHeader.style.display="table-cell";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="table-cell";
+        }
+    }
 }
 function closeType(){
-    var col = document.querySelector('.typeCol');
-    if(col.style.visibility!=="collapse"){
-        col.style.visibility="collapse";
+    var rowsLength = x.rows.length;
+    var col = 2;
+    var tr, td;
+    var typeHeader = document.querySelector('#typeHeader');
+    console.log(typeCB.checked);
+    if(typeCB.checked){
+        console.log("true");
+        typeCB.checked=false;
+        typeHeader.style.display="none";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="none";
+        }
     }
-    else col.style.visibility="visible";
+    else if (!typeCB.checked){
+        console.log("false");
+        typeCB.checked=true;
+        typeHeader.style.display="table-cell";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="table-cell";
+        }
+    }
 }
 function closeIncome(){
-    var col = document.querySelector('.incCol');
-    if(col.style.visibility!=="collapse"){
-        col.style.visibility="collapse";
+    var rowsLength = x.rows.length;
+    var col = 3;
+    var tr, td;
+    var incomeHeader = document.querySelector('#incomeHeader');
+    console.log(incomeCB.checked);
+    if(incomeCB.checked){
+        console.log("true");
+        incomeCB.checked=false;
+        incomeHeader.style.display="none";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="none";
+        }
     }
-    else col.style.visibility="visible";
+    else if (!incomeCB.checked){
+        console.log("false");
+        incomeCB.checked=true;
+        incomeHeader.style.display="table-cell";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="table-cell";
+        }
+    }
 }
 function closeOutcome(){
-    var col = document.querySelector('.outcCol');
-    if(col.style.visibility!=="collapse"){
-        col.style.visibility="collapse";
+    var rowsLength = x.rows.length;
+    var col = 4;
+    var tr, td;
+    var outcomeHeader = document.querySelector('#outcomeHeader');
+    console.log(outcomeCB.checked);
+    if(outcomeCB.checked){
+        console.log("true");
+        outcomeCB.checked=false;
+        outcomeHeader.style.display="none";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="none";
+        }
     }
-    else col.style.visibility="visible";
+    else if (!outcomeCB.checked){
+        console.log("false");
+        outcomeCB.checked=true;
+        outcomeHeader.style.display="table-cell";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="table-cell";
+        }
+    }
 }
