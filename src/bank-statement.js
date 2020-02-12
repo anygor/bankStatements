@@ -1,3 +1,18 @@
+const myStatementDataSorted = myStatementData.sort(compare);
+
+function compare(a, b){
+    const dateA = a.date;
+    const dateB = b.date;
+
+    let comparison = 0;
+    if (dateA >= dateB) {
+        comparison = 1;
+    } else if (dateA < dateB) {
+        comparison = -1;
+    }
+    return comparison;
+}
+
 const dateCB = document.querySelector('#check_checkdate');
 const timeCB = document.querySelector('#check_checktime');
 const typeCB = document.querySelector('#check_checktype');
@@ -12,7 +27,7 @@ let columnsOpen = 5;
 
 let selectField = document.querySelector('select');
 selectField.addEventListener('change', (e) => {
-    var selectNewVal1 = e && e.target && e.target.value;
+    const selectNewVal1 = e && e.target && e.target.value;
     if (selectNewVal1 === 'По дате'){
         group();
     }
@@ -24,14 +39,14 @@ selectField.addEventListener('change', (e) => {
 nogroup();
 
 function parseDate(dateStr){
-    var date = new Date(dateStr);
-    var options = {year: 'numeric', month: 'numeric', day: 'numeric'};
+    const date = new Date(dateStr);
+    const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
     return date.toLocaleString('ru-RU', options);
 
 }
 function parseTime(dateStr){
-    var date = new Date(dateStr);
-    var options = {hour: 'numeric', minute: 'numeric', second: 'numeric'};
+    const date = new Date(dateStr);
+    const options = {hour: 'numeric', minute: 'numeric', second: 'numeric'};
     return date.toLocaleTimeString('ru-RU', options);
 }
 
@@ -124,19 +139,19 @@ function nogroup(){
     document.querySelector('#incomeHeader').style.display = "table-cell";
     document.querySelector('#outcomeHeader').style.display = "table-cell";
 
-    var old_tbody = document.querySelector('tbody');
-    var new_tbody = document.createElement('tbody');
+    const old_tbody = document.querySelector('tbody');
+    const new_tbody = document.createElement('tbody');
     old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
 
     const x = document.querySelector('tbody');
 
-    for(var i = 0; i < myStatementData.length; i++){
+    for(let i = 0; i < myStatementDataSorted.length; i++){
 
         const currentRow = document.createElement('tr');
         x.appendChild(currentRow);
     
-        const date = myStatementData[i].date;
-        let amount = myStatementData[i].amount;
+        const date = myStatementDataSorted[i].date;
+        let amount = myStatementDataSorted[i].amount;
         const dateString = parseDate(date);
         const timeString = parseTime(date);
     
@@ -151,7 +166,7 @@ function nogroup(){
         currentRow.appendChild(timeCell);
     
         const typeCell = document.createElement('td');
-        typeCell.innerText = myStatementData[i].type;
+        typeCell.innerText = myStatementDataSorted[i].type;
         typeCell.className = "type";
         currentRow.appendChild(typeCell);
     
@@ -169,24 +184,24 @@ function group(){
     incomeCB.disabled = true;
     outcomeCB.disabled = true;
 
-    var old_tbody = document.querySelector('tbody');
-    var new_tbody = document.createElement('tbody');
+    const old_tbody = document.querySelector('tbody');
+    const new_tbody = document.createElement('tbody');
     old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
 
     const x = document.querySelector('tbody');
 
-    var sumDay = new Map();
+    let sumDay = new Map();
 
-    for (var i = 0; i < myStatementData.length; i++){
-        let amount = myStatementData[i].amount;
-        const date = myStatementData[i].date;
-        var dateString = parseDate(date);
+    for (let i = 0; i < myStatementDataSorted.length; i++){
+        let amount = myStatementDataSorted[i].amount;
+        const date = myStatementDataSorted[i].date;
+        const dateString = parseDate(date);
 
         if(!sumDay.has(dateString)){
             sumDay.set(dateString, amount);
         }
         else{
-            var currentAmount = sumDay.get(dateString);
+            const currentAmount = sumDay.get(dateString);
             sumDay.set(dateString, currentAmount + amount);
         }
     }
