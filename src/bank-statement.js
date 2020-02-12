@@ -36,6 +36,7 @@ function parseTime(dateStr){
 }
 
 function closeColumn(){
+    x = document.querySelector('tbody');
     const rowsLength = x.rows.length;
     let col;
     let tr, td;
@@ -105,6 +106,21 @@ function findOpenColumn(){
 }
 
 function nogroup(){
+    dateCB.disabled = false;
+    timeCB.disabled = false;
+    typeCB.disabled = false;
+    incomeCB.disabled = false;
+    outcomeCB.disabled = false;
+
+    dateCB.checked = true;
+    timeCB.checked = true;
+    typeCB.checked = true;
+    incomeCB.checked = true;
+    outcomeCB.checked = true;
+    
+    document.querySelector('#typeHeader').style.display = "table-cell";
+    document.querySelector('#timeHeader').style.display = "table-cell";
+
     var old_tbody = document.querySelector('tbody');
     var new_tbody = document.createElement('tbody');
     old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
@@ -117,9 +133,9 @@ function nogroup(){
         x.appendChild(currentRow);
     
         const date = myStatementData[i].date;
-        var amount = myStatementData[i].amount;
-        var dateString = parseDate(date);
-        var timeString = parseTime(date);
+        let amount = myStatementData[i].amount;
+        const dateString = parseDate(date);
+        const timeString = parseTime(date);
     
         const dateCell = document.createElement('td');
         dateCell.innerText = dateString;
@@ -136,31 +152,19 @@ function nogroup(){
         typeCell.className = "type";
         currentRow.appendChild(typeCell);
     
-        var amountString;
-        if (amount > 0) {
-            const incomeCell = document.createElement('td');
-            amountString = amount.toLocaleString('ru-RU') + ' ₽';
-            incomeCell.innerText = amountString;
-            incomeCell.className = "income";
-            currentRow.appendChild(incomeCell);
-            const outcomeCell = document.createElement('td');
-            outcomeCell.className = "outcome";
-            currentRow.appendChild(outcomeCell);
-        }
-        else {
-            amount = Math.abs(amount);
-            amountString = amount.toLocaleString('ru-RU') + ' ₽';
-            currentRow.appendChild(document.createElement('td'));
-            const outcomeCell = document.createElement('td');
-            outcomeCell.className = "outcome";
-            outcomeCell.innerText = amountString;
-            currentRow.appendChild(outcomeCell);
-        }
+        fillValues(currentRow, amount);
     }    
 }
 function group(){
-    timeCB.closeColumn;
-    typeCB.closeColumn;
+    timeCB.checked = false;
+    typeCB.checked = false;
+    closeGroup();
+
+    dateCB.disabled = true;
+    timeCB.disabled = true;
+    typeCB.disabled = true;
+    incomeCB.disabled = true;
+    outcomeCB.disabled = true;
 
     var old_tbody = document.querySelector('tbody');
     var new_tbody = document.createElement('tbody');
@@ -171,7 +175,7 @@ function group(){
     var sumDay = new Map();
 
     for (var i = 0; i < myStatementData.length; i++){
-        var amount = myStatementData[i].amount;
+        let amount = myStatementData[i].amount;
         const date = myStatementData[i].date;
         var dateString = parseDate(date);
 
@@ -183,13 +187,83 @@ function group(){
             sumDay.set(dateString, currentAmount + amount);
         }
     }
-    var mapIter = sumDay.keys();
 
-    var currentRow = document.createElement('tr');
-    x.appendChild(currentRow);
+    let mapIter = sumDay.keys();
+    for(let i = 0; i < sumDay.size; i++){
+        let currentRow = document.createElement('tr');
+        x.appendChild(currentRow);
 
-    const dateCell = document.createElement('td');
-    dateCell.innerText = mapIter.next().value;
-    dateCell.className = "date";
-    currentRow.appendChild(dateCell);
+        let dateFromMap = mapIter.next()
+        const dateCell = document.createElement('td');
+        dateCell.innerText = dateFromMap.value;
+        dateCell.className = "date";
+        currentRow.appendChild(dateCell);
+
+        let amountFromMap = sumDay.get(dateFromMap.value);
+        fillValues(currentRow, amountFromMap);
+    }
+}
+
+function fillValues(row, amount){
+    if (amount > 0) {
+        const incomeCell = document.createElement('td');
+        amountString = amount.toLocaleString('ru-RU') + ' ₽';
+        incomeCell.innerText = amountString;
+        incomeCell.className = "income";
+        row.appendChild(incomeCell);
+        const outcomeCell = document.createElement('td');
+        outcomeCell.className = "outcome";
+        row.appendChild(outcomeCell);
+    }
+    else {
+        amount = Math.abs(amount);
+        amountString = amount.toLocaleString('ru-RU') + ' ₽';
+        row.appendChild(document.createElement('td'));
+        const outcomeCell = document.createElement('td');
+        outcomeCell.className = "outcome";
+        outcomeCell.innerText = amountString;
+        row.appendChild(outcomeCell);
+    }
+}
+
+function closeGroup(){
+    x = document.querySelector('tbody');
+    const rowsLength = x.rows.length;
+    let col = 1;
+    let tr, td;
+    let header = document.querySelector('#timeHeader');
+    if(!timeCB.checked){
+        header.style.display="none";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="none";
+        }
+    }
+    else if (timeCB.checked){
+        header.style.display="table-cell";            
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="table-cell";
+        }
+    }
+    col = 2;
+    header = document.querySelector('#typeHeader');
+    if(!typeCB.checked){
+        header.style.display="none";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="none";
+        }
+    }
+    else if (typeCB.checked){
+        header.style.display="table-cell";            
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="table-cell";
+        }
+    }
 }
