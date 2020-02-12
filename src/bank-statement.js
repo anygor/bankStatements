@@ -1,3 +1,20 @@
+const myStatementDataSorted = myStatementData.sort(compare);
+
+console.log(myStatementDataSorted);
+
+function compare(a, b){
+    const dateA = a.date;
+    const dateB = b.date;
+
+    let comparison = 0;
+    if (dateA >= dateB) {
+        comparison = 1;
+    } else if (dateA < dateB) {
+        comparison = -1;
+    }
+    return comparison;
+}
+
 const dateCB = document.querySelector('#check_checkdate');
 const timeCB = document.querySelector('#check_checktime');
 const typeCB = document.querySelector('#check_checktype');
@@ -130,13 +147,13 @@ function nogroup(){
 
     const x = document.querySelector('tbody');
 
-    for(var i = 0; i < myStatementData.length; i++){
+    for(var i = 0; i < myStatementDataSorted.length; i++){
 
         const currentRow = document.createElement('tr');
         x.appendChild(currentRow);
     
-        const date = myStatementData[i].date;
-        let amount = myStatementData[i].amount;
+        const date = myStatementDataSorted[i].date;
+        let amount = myStatementDataSorted[i].amount;
         const dateString = parseDate(date);
         const timeString = parseTime(date);
     
@@ -151,7 +168,7 @@ function nogroup(){
         currentRow.appendChild(timeCell);
     
         const typeCell = document.createElement('td');
-        typeCell.innerText = myStatementData[i].type;
+        typeCell.innerText = myStatementDataSorted[i].type;
         typeCell.className = "type";
         currentRow.appendChild(typeCell);
     
@@ -177,9 +194,9 @@ function group(){
 
     var sumDay = new Map();
 
-    for (var i = 0; i < myStatementData.length; i++){
-        let amount = myStatementData[i].amount;
-        const date = myStatementData[i].date;
+    for (var i = 0; i < myStatementDataSorted.length; i++){
+        let amount = myStatementDataSorted[i].amount;
+        const date = myStatementDataSorted[i].date;
         var dateString = parseDate(date);
 
         if(!sumDay.has(dateString)){
