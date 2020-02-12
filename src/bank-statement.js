@@ -86,14 +86,14 @@ function hideCheckboxIfOneColumnRemains(){
     if(columnsOpen == 1){
         remainingCB = findOpenColumn();
         console.log(remainingCB);
-        remainingCB.style.display = "none";
+        remainingCB.disabled = true;
     }
     else if (columnsOpen == 2){
-        dateCB.style.display = "table-cell";
-        timeCB.style.display = "table-cell";
-        typeCB.style.display = "table-cell";
-        incomeCB.style.display = "table-cell";
-        outcomeCB.style.display = "table-cell";
+        dateCB.disabled = false;
+        timeCB.disabled = false;
+        typeCB.disabled = false;
+        incomeCB.disabled = false;
+        outcomeCB.disabled = false;
     }
 }
 
@@ -118,8 +118,11 @@ function nogroup(){
     incomeCB.checked = true;
     outcomeCB.checked = true;
     
+    document.querySelector('#dateHeader').style.display = "table-cell";
     document.querySelector('#typeHeader').style.display = "table-cell";
     document.querySelector('#timeHeader').style.display = "table-cell";
+    document.querySelector('#incomeHeader').style.display = "table-cell";
+    document.querySelector('#outcomeHeader').style.display = "table-cell";
 
     var old_tbody = document.querySelector('tbody');
     var new_tbody = document.createElement('tbody');
