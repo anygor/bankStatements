@@ -118,8 +118,11 @@ function nogroup(){
     incomeCB.checked = true;
     outcomeCB.checked = true;
     
+    document.querySelector('#dateHeader').style.display = "table-cell";
     document.querySelector('#typeHeader').style.display = "table-cell";
     document.querySelector('#timeHeader').style.display = "table-cell";
+    document.querySelector('#incomeHeader').style.display = "table-cell";
+    document.querySelector('#outcomeHeader').style.display = "table-cell";
 
     var old_tbody = document.querySelector('tbody');
     var new_tbody = document.createElement('tbody');
