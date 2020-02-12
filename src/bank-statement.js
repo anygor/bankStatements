@@ -1,4 +1,3 @@
-const x = document.querySelector('tbody'); // gets elements with css selector
 const dateCB = document.querySelector('#check_checkdate');
 const timeCB = document.querySelector('#check_checktime');
 const typeCB = document.querySelector('#check_checktype');
@@ -14,62 +13,15 @@ let columnsOpen = 5;
 let selectField = document.querySelector('select');
 selectField.addEventListener('change', (e) => {
     var selectNewVal1 = e && e.target && e.target.value;
-    if (selectNewVal1 === 'group'){
+    if (selectNewVal1 === 'По дате'){
         group();
     }
-    else if (selectNewVal1 === 'no-group'){
+    else if (selectNewVal1 === 'Без группировки'){
         nogroup();
     }
-})
+});
 
-for(var i = 0; i < myStatementData.length; i++){
-
-    const currentRow = document.createElement('tr');
-    x.appendChild(currentRow);
-
-    const date = myStatementData[i].date;
-    var amount = myStatementData[i].amount;
-    var dateString = parseDate(date);
-    var timeString = parseTime(date);
-
-    const dateCell = document.createElement('td');
-    dateCell.innerText = dateString;
-    dateCell.className = "date";
-    currentRow.appendChild(dateCell);
-
-    const timeCell = document.createElement('td');
-    timeCell.innerText = timeString;
-    timeCell.className = "time";
-    currentRow.appendChild(timeCell);
-
-    const typeCell = document.createElement('td');
-    typeCell.innerText = myStatementData[i].type;
-    typeCell.className = "type";
-    currentRow.appendChild(typeCell);
-
-    var amountString;
-    if (amount > 0) {
-        const incomeCell = document.createElement('td');
-        amountString = amount.toLocaleString('ru-RU') + ' ₽';
-        incomeCell.innerText = amountString;
-        incomeCell.className = "income";
-        currentRow.appendChild(incomeCell);
-        const outcomeCell = document.createElement('td');
-        outcomeCell.className = "outcome";
-        currentRow.appendChild(outcomeCell);
-    }
-    else {
-        amount = Math.abs(amount);
-        amountString = amount.toLocaleString('ru-RU') + ' ₽';
-        currentRow.appendChild(document.createElement('td'));
-        const outcomeCell = document.createElement('td');
-        outcomeCell.className = "outcome";
-        outcomeCell.innerText = amountString;
-        currentRow.appendChild(outcomeCell);
-    }
-}
-
-
+nogroup();
 
 function parseDate(dateStr){
     var date = new Date(dateStr);
@@ -153,14 +105,68 @@ function findOpenColumn(){
 }
 
 function nogroup(){
+    var old_tbody = document.querySelector('tbody');
+    var new_tbody = document.createElement('tbody');
+    old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
 
+    const x = document.querySelector('tbody');
+
+    for(var i = 0; i < myStatementData.length; i++){
+
+        const currentRow = document.createElement('tr');
+        x.appendChild(currentRow);
+    
+        const date = myStatementData[i].date;
+        var amount = myStatementData[i].amount;
+        var dateString = parseDate(date);
+        var timeString = parseTime(date);
+    
+        const dateCell = document.createElement('td');
+        dateCell.innerText = dateString;
+        dateCell.className = "date";
+        currentRow.appendChild(dateCell);
+    
+        const timeCell = document.createElement('td');
+        timeCell.innerText = timeString;
+        timeCell.className = "time";
+        currentRow.appendChild(timeCell);
+    
+        const typeCell = document.createElement('td');
+        typeCell.innerText = myStatementData[i].type;
+        typeCell.className = "type";
+        currentRow.appendChild(typeCell);
+    
+        var amountString;
+        if (amount > 0) {
+            const incomeCell = document.createElement('td');
+            amountString = amount.toLocaleString('ru-RU') + ' ₽';
+            incomeCell.innerText = amountString;
+            incomeCell.className = "income";
+            currentRow.appendChild(incomeCell);
+            const outcomeCell = document.createElement('td');
+            outcomeCell.className = "outcome";
+            currentRow.appendChild(outcomeCell);
+        }
+        else {
+            amount = Math.abs(amount);
+            amountString = amount.toLocaleString('ru-RU') + ' ₽';
+            currentRow.appendChild(document.createElement('td'));
+            const outcomeCell = document.createElement('td');
+            outcomeCell.className = "outcome";
+            outcomeCell.innerText = amountString;
+            currentRow.appendChild(outcomeCell);
+        }
+    }    
 }
 function group(){
-    console.log(timeCB);
+    timeCB.closeColumn;
+    typeCB.closeColumn;
 
     var old_tbody = document.querySelector('tbody');
     var new_tbody = document.createElement('tbody');
     old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
+
+    const x = document.querySelector('tbody');
 
     var sumDay = new Map();
 
