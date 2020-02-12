@@ -1,14 +1,26 @@
-var x = document.querySelector('tbody'); // gets elements with css selector
-var dateCB = document.querySelector('#check_checkdate');
-var timeCB = document.querySelector('#check_checktime');
-var typeCB = document.querySelector('#check_checktype');
-var incomeCB = document.querySelector('#check_checkincome');
-var outcomeCB = document.querySelector('#check_checkoutcome');
-dateCB.checked = true;
-timeCB.checked = true;
-typeCB.checked = true;
-incomeCB.checked = true;
-outcomeCB.checked = true;
+const x = document.querySelector('tbody'); // gets elements with css selector
+const dateCB = document.querySelector('#check_checkdate');
+const timeCB = document.querySelector('#check_checktime');
+const typeCB = document.querySelector('#check_checktype');
+const incomeCB = document.querySelector('#check_checkincome');
+const outcomeCB = document.querySelector('#check_checkoutcome');
+dateCB.addEventListener('click', closeColumn);
+timeCB.addEventListener('click', closeColumn);
+typeCB.addEventListener('click', closeColumn);
+incomeCB.addEventListener('click', closeColumn);
+outcomeCB.addEventListener('click', closeColumn);
+let columnsOpen = 5;
+
+let selectField = document.querySelector('select');
+selectField.addEventListener('change', (e) => {
+    var selectNewVal1 = e && e.target && e.target.value;
+    if (selectNewVal1 === 'group'){
+        group();
+    }
+    else if (selectNewVal1 === 'no-group'){
+        nogroup();
+    }
+})
 
 for(var i = 0; i < myStatementData.length; i++){
 
@@ -57,6 +69,8 @@ for(var i = 0; i < myStatementData.length; i++){
     }
 }
 
+
+
 function parseDate(dateStr){
     var date = new Date(dateStr);
     var options = {year: 'numeric', month: 'numeric', day: 'numeric'};
@@ -69,155 +83,80 @@ function parseTime(dateStr){
     return date.toLocaleTimeString('ru-RU', options);
 }
 
+function closeColumn(){
+    const rowsLength = x.rows.length;
+    let col;
+    let tr, td;
+    let header;
+    if (this.id === "check_checkdate"){
+        col = 0;
+        header = document.querySelector('#dateHeader');
+    }
+    else if (this.id === "check_checktime"){
+        col = 1;
+        header = document.querySelector('#timeHeader');
+    }
+    else if (this.id === "check_checktype"){
+        col = 2;
+        header = document.querySelector('#typeHeader');
+    }
+    else if (this.id === "check_checkincome"){
+        col = 3;
+        header = document.querySelector('#incomeHeader');
+    }
+    else if (this.id === "check_checkoutcome"){
+        col = 4;
+        header = document.querySelector('#outcomeHeader');
+    }
+    if(!this.checked){
+        header.style.display="none";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="none";
+        }
+        columnsOpen--;
+    }
+    else if (this.checked){
+        header.style.display="table-cell";
+        for(i = 0; i < rowsLength; i++){
+            tr = x.rows[i];
+            td = tr.cells[col];
+            td.style.display="table-cell";
+        }
+        columnsOpen++;
+    }
+    hideCheckboxIfOneColumnRemains();
+}
 
-function closeDate(){
-    var rowsLength = x.rows.length;
-    var col = 0;
-    var tr, td;
-    var dateHeader = document.querySelector('#dateHeader');
-    console.log(dateCB.checked);
-    if(dateCB.checked){
-        console.log("true");
-        dateCB.checked=false;
-        dateHeader.style.display="none";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="none";
-        }
+function hideCheckboxIfOneColumnRemains(){
+    if(columnsOpen == 1){
+        remainingCB = findOpenColumn();
+        console.log(remainingCB);
+        remainingCB.style.display = "none";
     }
-    else if (!dateCB.checked){
-        console.log("false");
-        dateCB.checked=true;
-        dateHeader.style.display="table-cell";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="table-cell";
-        }
+    else if (columnsOpen == 2){
+        dateCB.style.display = "table-cell";
+        timeCB.style.display = "table-cell";
+        typeCB.style.display = "table-cell";
+        incomeCB.style.display = "table-cell";
+        outcomeCB.style.display = "table-cell";
     }
 }
-function closeTime(){
-    var rowsLength = x.rows.length;
-    var col = 1;
-    var tr, td;
-    var timeHeader = document.querySelector('#timeHeader');
-    console.log(timeCB.checked);
-    if(timeCB.checked){
-        console.log("true");
-        timeCB.checked=false;
-        timeHeader.style.display="none";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="none";
-        }
-    }
-    else if (!timeCB.checked){
-        console.log("false");
-        timeCB.checked=true;
-        timeHeader.style.display="table-cell";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="table-cell";
-        }
-    }
-}
-function closeType(){
-    var rowsLength = x.rows.length;
-    var col = 2;
-    var tr, td;
-    var typeHeader = document.querySelector('#typeHeader');
-    console.log(typeCB.checked);
-    if(typeCB.checked){
-        console.log("true");
-        typeCB.checked=false;
-        typeHeader.style.display="none";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="none";
-        }
-    }
-    else if (!typeCB.checked){
-        console.log("false");
-        typeCB.checked=true;
-        typeHeader.style.display="table-cell";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="table-cell";
-        }
-    }
-}
-function closeIncome(){
-    var rowsLength = x.rows.length;
-    var col = 3;
-    var tr, td;
-    var incomeHeader = document.querySelector('#incomeHeader');
-    console.log(incomeCB.checked);
-    if(incomeCB.checked){
-        console.log("true");
-        incomeCB.checked=false;
-        incomeHeader.style.display="none";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="none";
-        }
-    }
-    else if (!incomeCB.checked){
-        console.log("false");
-        incomeCB.checked=true;
-        incomeHeader.style.display="table-cell";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="table-cell";
-        }
-    }
-}
-function closeOutcome(){
-    var rowsLength = x.rows.length;
-    var col = 4;
-    var tr, td;
-    var outcomeHeader = document.querySelector('#outcomeHeader');
-    console.log(outcomeCB.checked);
-    if(outcomeCB.checked){
-        console.log("true");
-        outcomeCB.checked=false;
-        outcomeHeader.style.display="none";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="none";
-        }
-    }
-    else if (!outcomeCB.checked){
-        console.log("false");
-        outcomeCB.checked=true;
-        outcomeHeader.style.display="table-cell";
-        for(i = 0; i < rowsLength; i++){
-            tr = x.rows[i];
-            td = tr.cells[col];
-            td.style.display="table-cell";
-        }
-    }
+
+function findOpenColumn(){
+    if (dateCB.checked === true) return dateCB;
+    if (timeCB.checked === true) return timeCB;
+    if (typeCB.checked === true) return typeCB;
+    if (incomeCB.checked === true) return incomeCB;
+    if (outcomeCB.checked === true) return outcomeCB;
 }
 
 function nogroup(){
-    timeCB.checked = false;
-    typeCB.checked = false;
-    closeTime();
-    closeType();
 
 }
 function group(){
-    timeCB.checked = true;
-    typeCB.checked = true;
-    closeType();
-    closeTime();
+    console.log(timeCB);
 
     var old_tbody = document.querySelector('tbody');
     var new_tbody = document.createElement('tbody');
