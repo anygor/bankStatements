@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Statement</title>
+    <link rel="stylesheet" href="dist/style.css">
+</head>
+<body>
+    <div class="content">
+    <div class="header">
+        <h1 class=header_title>Моя выписка</h1>
+        <p class="header_username">Иван Иванов</p>
+    </div>
+    <div class="check">
+            <label for="check_data">Дата</label>
+            <input class=check_checkbox id="check_checkdate" type="checkbox" checked="checked"">
+            
+            <label for="check_time">Время</label>
+            <input class=check_checkbox id="check_checktime" type="checkbox" checked="checked">
+
+            <label for="check_type">Тип</label>
+            <input class=check_checkbox id="check_checktype" type="checkbox" checked="checked">
+
+            <label for="check_income">Приход</label>
+            <input class=check_checkbox id="check_checkincome" type="checkbox" checked="checked">
+
+            <label for="check_outcome">Расход</label>
+            <input class=check_checkbox id="check_checkoutcome" type="checkbox" checked="checked">
+    </div>
+    <select class=grouping>
+        <option>Без группировки</option>
+        <option>По дате</option>
+    </select>
+    <table>
+        <thead>
+            <th class=columnHeader id="dateHeader">Дата</th>
+            <th class=columnHeader id="timeHeader">Время</th>
+            <th class=columnHeader id="typeHeader">Тип</th>
+            <th class=columnHeader id="incomeHeader">Приход</th>
+            <th class=columnHeader id="outcomeHeader">Расход</th>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>    
+    <script src="src/my-statement-data.js"></script>
+    <script src="src/bank-statement.js"></script>
+    <p class="bankTitle" >© Мой Банк</p>
+    </div>
+</body>
+</html>
