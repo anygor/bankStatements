@@ -1,5 +1,10 @@
 const myStatementDataSorted = myStatementData.sort(compare);
 
+<<<<<<< HEAD
+=======
+console.log(myStatementDataSorted);
+
+>>>>>>> 2fbb914e5f775c626a04422874d4868ac3f27916
 function compare(a, b){
     const dateA = a.date;
     const dateB = b.date;
@@ -145,7 +150,11 @@ function nogroup(){
 
     const x = document.querySelector('tbody');
 
+<<<<<<< HEAD
     for(let i = 0; i < myStatementDataSorted.length; i++){
+=======
+    for(var i = 0; i < myStatementDataSorted.length; i++){
+>>>>>>> 2fbb914e5f775c626a04422874d4868ac3f27916
 
         const currentRow = document.createElement('tr');
         x.appendChild(currentRow);
@@ -192,10 +201,17 @@ function group(){
 
     let sumDay = new Map();
 
+<<<<<<< HEAD
     for (let i = 0; i < myStatementDataSorted.length; i++){
         let amount = myStatementDataSorted[i].amount;
         const date = myStatementDataSorted[i].date;
         const dateString = parseDate(date);
+=======
+    for (var i = 0; i < myStatementDataSorted.length; i++){
+        let amount = myStatementDataSorted[i].amount;
+        const date = myStatementDataSorted[i].date;
+        var dateString = parseDate(date);
+>>>>>>> 2fbb914e5f775c626a04422874d4868ac3f27916
 
         if(!sumDay.has(dateString)){
             sumDay.set(dateString, amount);
