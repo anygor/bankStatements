@@ -18,11 +18,12 @@ const timeCB = document.querySelector('#check_checktime');
 const typeCB = document.querySelector('#check_checktype');
 const incomeCB = document.querySelector('#check_checkincome');
 const outcomeCB = document.querySelector('#check_checkoutcome');
-dateCB.addEventListener('click', closeColumn);
-timeCB.addEventListener('click', closeColumn);
-typeCB.addEventListener('click', closeColumn);
-incomeCB.addEventListener('click', closeColumn);
-outcomeCB.addEventListener('click', closeColumn);
+
+const checkBoxes = document.querySelectorAll(".check_checkbox");
+checkBoxes.forEach(function(checkBoxes) {
+  checkBoxes.addEventListener('click', closeColumn)
+});
+
 let columnsOpen = 5;
 
 let selectField = document.querySelector('select');
@@ -104,11 +105,9 @@ function hideCheckboxIfOneColumnRemains(){
         remainingCB.disabled = true;
     }
     else if (columnsOpen == 2){
-        dateCB.disabled = false;
-        timeCB.disabled = false;
-        typeCB.disabled = false;
-        incomeCB.disabled = false;
-        outcomeCB.disabled = false;
+        checkBoxes.forEach(function(checkBoxes) {
+            checkBoxes.disabled = false;
+          });
     }
 }
 
@@ -121,23 +120,16 @@ function findOpenColumn(){
 }
 
 function nogroup(){
-    dateCB.disabled = false;
-    timeCB.disabled = false;
-    typeCB.disabled = false;
-    incomeCB.disabled = false;
-    outcomeCB.disabled = false;
 
-    dateCB.checked = true;
-    timeCB.checked = true;
-    typeCB.checked = true;
-    incomeCB.checked = true;
-    outcomeCB.checked = true;
-    
-    document.querySelector('#dateHeader').style.display = "table-cell";
-    document.querySelector('#typeHeader').style.display = "table-cell";
-    document.querySelector('#timeHeader').style.display = "table-cell";
-    document.querySelector('#incomeHeader').style.display = "table-cell";
-    document.querySelector('#outcomeHeader').style.display = "table-cell";
+    checkBoxes.forEach(function(checkBoxes) {
+        checkBoxes.disabled = false;
+        checkBoxes.checked = true;
+    });
+
+    const headers = document.querySelectorAll(".columnHeader");
+    headers.forEach(function(headers) {
+        headers.style.display = "table-cell";
+    });
 
     const old_tbody = document.querySelector('tbody');
     const new_tbody = document.createElement('tbody');
@@ -178,11 +170,9 @@ function group(){
     typeCB.checked = false;
     closeGroup();
 
-    dateCB.disabled = true;
-    timeCB.disabled = true;
-    typeCB.disabled = true;
-    incomeCB.disabled = true;
-    outcomeCB.disabled = true;
+    checkBoxes.forEach(function(checkBoxes) {
+        checkBoxes.disabled = true;
+    });
 
     const old_tbody = document.querySelector('tbody');
     const new_tbody = document.createElement('tbody');
